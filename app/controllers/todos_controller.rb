@@ -2,7 +2,7 @@ class TodosController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    render plain: Todo.order(:due_date).map { |todo| todo.to_displayable_string }.join("\n")
+    # render plain: Todo.order(:due_date).map { |todo| todo.to_displayable_string }.join("\n")
   end
 
   def show
@@ -29,5 +29,10 @@ class TodosController < ApplicationController
       completed: false,
     )
     render plain: "Hey your new todo is created with id  #{newTodo.id}"
+  end
+
+  def login
+    user = User.find_by(email: params[:email])
+    render plain: !!user && user.password == params[:password]
   end
 end
