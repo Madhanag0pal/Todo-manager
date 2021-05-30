@@ -1,24 +1,30 @@
 <section class="TodoSection">
-
   <div class="TodoSectionTitle" >
-    <p class="TodoSection-title"><%= selction_title %></p>
-    <p class="TodoSection-remainingCount"><%= todos.completed.count %>/<%= todos.count %></p>
+    <p class="TodoSection-title"> <%= selction_title %></p>
+    <p class="TodoSection-remainingCount"> <%= todos.completed.count %>/<%= todos.count %> </p>
   </div>
-
   <ul>
     <% todos.each do |todo| %>
       <li class="TodoItem">
         <label class="TodoItem-container">
-          <input class="TodoItem-checkbox" type="checkbox" <%= "checked" if todo.completed %>>
-          <p <%= "class = TodoItem-strikeout" if todo.completed %>><%= todo.todo_text %></p>
-          <% if show_date %>
-            <p class="TodoItem-dueDate"><%= todo.due_date.to_s(:short) %></p>
-          <% end %>
-          <a class="TodoItem-delete" href="javascript:void()">
-            <img src="trashcan.svg" alt="Delete" width="16px">
-          </a>
-        </label>
-      </li>
-    <% end %>
-  </ul>
-</section>
+          <%= form_with url: "/todos/#{todo.id}", method: :put do %>
+            <input
+              class="TodoItem-checkbox"
+              type="checkbox"
+              name="completed"
+              onclick = "this.form.submit()"
+              <%= "checked" if todo.completed%>
+            >
+            <% end %>
+            <p <%= "class = TodoItem-strikeout" if todo.completed %>> <%= todo.todo_text %> </p>
+            <% if show_date %>
+              <p class="TodoItem-dueDate"><%= todo.due_date.to_s(:short) %></p>
+            <% end %>
+            <a class="TodoItem-delete" href="javascript:void()">
+              <img src="trashcan.svg" alt="Delete" width="16px">
+            </a>
+          </label>
+        </li>
+      <% end %>
+    </ul>
+  </section>
