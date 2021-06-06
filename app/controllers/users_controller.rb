@@ -20,9 +20,10 @@ class UsersController < ApplicationController
 
   def create
     newUser = User.create!(
-      name: params[:name],
+      first_name: params[:first_name],
+      last_name: params[:last_name],
       email: params[:email],
-      password: params[:Password],
+      password_digest: params[:password],
     )
     render plain: "new user is created with id  #{newUser.id}"
   end
