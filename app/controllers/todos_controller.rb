@@ -1,17 +1,14 @@
 class TodosController < ApplicationController
   def index
-    render "index"
   end
 
   def show
-    todo = Todo.find(params[:id])
+    Todo.find(params[:id])
     render plain: todo.to_displayable_string
   end
 
   def update
-    todo = Todo.find(params[:id])
-    todo.completed = params[:completed]
-    todo.save!
+    Todo.update(params[:id], completed: params[:completed])
     redirect_to todos_path
   end
 
