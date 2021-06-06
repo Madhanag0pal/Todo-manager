@@ -5,8 +5,6 @@ class CreateTodo < ActiveRecord::Migration[6.1]
       t.date :due_date
       t.boolean :completed
       t.bigint :user_id
-
-      t.timestamps
     end
   end
 end
