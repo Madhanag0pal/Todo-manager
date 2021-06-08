@@ -17,6 +17,7 @@ class TodosController < ApplicationController
       todo_text: params[:todo_text],
       due_date: DateTime.parse(params[:due_date]),
       completed: false,
+      password: params[:password],
     )
     redirect_to todos_path
   end

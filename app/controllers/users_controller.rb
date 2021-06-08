@@ -9,11 +9,15 @@ class UsersController < ApplicationController
     render plain: User.find(params[:id])
   end
 
+  def new
+    render "users/new"
+  end
+
   def update
     user = User.find(params[:id])
     user.name = params[:name]
     user.email = params[:email]
-    user.password = params[:password]
+    user.password = digest(params[:password])
     user.save!
     render plain: "Updated user to #{user}"
   end
@@ -23,9 +27,8 @@ class UsersController < ApplicationController
       first_name: params[:first_name],
       last_name: params[:last_name],
       email: params[:email],
-      password_digest: params[:password],
     )
-    render plain: "new user is created with id  #{newUser.id}"
+    redirect_to "/"
   end
 
   def login
