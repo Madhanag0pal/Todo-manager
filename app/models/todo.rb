@@ -1,12 +1,11 @@
 class Todo < ActiveRecord::Base
-  # belongs_to :user
+  validates :todo_text, presence: true
+  validates :due_date, presence: true
 
-  def self.add_task(h)
-    create!(todo_text: h[:todo_text], due_date: Date.today + h[:due_in_days], completed: false)
-  end
+  belongs_to :user
 
   def self.overdue
-    where("due_date < ?", Date.today)
+    where("due_date < ? and (not completed)", Date.today)
   end
 
   def self.due_today
@@ -19,9 +18,5 @@ class Todo < ActiveRecord::Base
 
   def self.completed(status = true)
     all.where(completed: status)
-  end
-
-  def self.mark_as_complete!(id, completed)
-    update(id, completed: completed)
   end
 end
