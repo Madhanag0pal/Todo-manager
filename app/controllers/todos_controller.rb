@@ -33,9 +33,4 @@ class TodosController < ApplicationController
     Todo.find(params[:id]).destroy
     redirect_to todos_path
   end
-
-  def login
-    user = User.find_by(email: params[:email])
-    render plain: !!user && user.password == params[:password]
-  end
 end
