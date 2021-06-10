@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :verify_authenticity_token
+  skip_before_action :ensuer_user_logged_in
 
   def index
     render plain: User.all.join("\n")
@@ -23,12 +23,13 @@ class UsersController < ApplicationController
   end
 
   def create
-    newUser = User.create!(
+    user = newUser = User.create!(
       first_name: params[:first_name],
       last_name: params[:last_name],
       email: params[:email],
       password: params[:password],
     )
+    session[:current_user_id] = user.id
     redirect_to "/"
   end
 
