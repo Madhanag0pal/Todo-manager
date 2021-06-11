@@ -1,16 +1,7 @@
 class UsersController < ApplicationController
   skip_before_action :ensuer_user_logged_in
 
-  def index
-    render plain: User.all.join("\n")
-  end
-
-  def show
-    render plain: User.find(params[:id])
-  end
-
   def new
-    render "users/new"
   end
 
   def update
@@ -32,15 +23,6 @@ class UsersController < ApplicationController
     else
       flash[:error] = new_user.errors.full_messages.join(", ")
       redirect_to new_user_path
-    end
-  end
-
-  def login
-    user = User.find_by(email: params[:email])
-    if user
-      render plain: user.password == params[:password]
-    else
-      render plain: "email \"#{params[:email]}\" does not exitst"
     end
   end
 end
