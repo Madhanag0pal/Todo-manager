@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'from@example.com'
-  layout 'mailer'
+  default from: "Todo Manager <noreplay@todo_manager.com>"
+  layout "mailer"
 end
