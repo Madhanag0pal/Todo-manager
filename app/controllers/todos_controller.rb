@@ -26,6 +26,7 @@ class TodosController < ApplicationController
     unless new_todo.save
       flash[:error] = new_todo.errors.full_messages.join(", ")
     end
+    TodoWorker.perform_async(new_todo.id)
     redirect_to todos_path
   end
 
