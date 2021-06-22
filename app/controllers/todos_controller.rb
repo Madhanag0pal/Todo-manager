@@ -3,11 +3,6 @@ class TodosController < ApplicationController
     @todos = current_user.todos
   end
 
-  def show
-    Todo.find(params[:id])
-    render plain: todo.to_displayable_string
-  end
-
   def update
     todo = Todo.where(id: params[:id], user_id: current_user.id)
     if todo
